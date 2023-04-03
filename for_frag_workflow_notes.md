@@ -1,15 +1,13 @@
 ---
 title: "CyVerse_Workflow_Notes"
 author: "stribling"
-date: "`r Sys.Date()`"
+date: "2023-04-03"
 output: 
   html_document: 
     keep_md: yes
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 ##### General set-up & workflow for shared data, analyses, and coding for the forest fragmentation working group
 
