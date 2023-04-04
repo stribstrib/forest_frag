@@ -2,9 +2,7 @@
 title: "CyVerse_Workflow_Notes"
 author: "stribling"
 date: "`r Sys.Date()`"
-output: 
-  html_document: 
-    keep_md: yes
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -13,9 +11,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ##### General set-up & workflow for shared data, analyses, and coding for the forest fragmentation working group
 
+
 ###### Overall goal: Store all shared data online, develop code in a shared version-control workspace, and run code & analyses on shared data using cloud computing
 
 #### **Data storage:**
+
 
 **We can store data in a common folder in [CyVerse](www.cyverse.org)**
 
@@ -34,6 +34,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #### **Code development:**
 
+
 **We can store and edit code on Github, using a shared group repo, ["forest_frag"](https://github.com/stribstrib/forest_frag).**
 
   * We can integrate the github repo with RStudio on personal computers or within CyVerse's RStudio ("Rocker").
@@ -48,6 +49,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 #### **Analysis Workflows:**
+
 
 **We can run analyses within the "VICE" environment of CyVerse.**
 
@@ -68,4 +70,7 @@ knitr::opts_chunk$set(echo = TRUE)
     + What is the best use of this cloud computing resource, given the restrictions?
   * Given limited processing hours within CyVerse, we may need to do most coding and work on personal computers, and then open CyVerse & Rocker for the big analyses, once code has been fully written.
     + This necessitates all of us downloading all files to our PCs anyway, so we can work off the cloud, tinker around, and then push it back up to the cloud and run the big analysis.
-  
+    
+**Visualization of how all of this comes together?**
+
+  ![](R:/ecohydrology/staff/Stribling/projects/forest_frag_wg/forest_frag/cloud_compute_diagram.png)
