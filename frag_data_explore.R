@@ -7,7 +7,7 @@ library(tidyverse)
 library(terra)
 # library(tidyterra)
 # library(sf)
-# library(sp)
+library(sp)
 # library(ggplot2)
 
 ##### IMPORT DATA #####
@@ -29,6 +29,7 @@ cali <- vect(str_c(fp, "political_boundaries/US_States.shp"))
 trin_cty <- vect(str_c(fp, "political_boundaries/Trinity_County.shp"))
 cali_counties <- vect(str_c(fp, "political_boundaries/US_Counties.shp"))
 trin_wsheds <- vect(str_c(fp, "Trinity_Watersheds/Trinity_Watersheds.shp"))
+west_basins <- vect(str_c(fp, "gages_II/bas_nonref_WestMnts.shp"))
 timb_harv <- vect(str_c(fp, "CAL_FIRE_Timber_Harvesting_Plans_All_TA83.kml"))
 cal_gages <- vect(str_c(fp, "cal_gages_acae.shp"))
 trin_NLCD <- rast(str_c(fp, "trin_county_NLCD_2019.tif"))
@@ -60,20 +61,52 @@ trin_wsheds_acea <- project(trin_wsheds, trin_NLCD)
 plot(cal_gages, col = "blue")
 crs(cal_gages) #ACEA crs
 
+plot(west_basins)
+crs(west_basins)
+west_basins_acea <- project(west_basins, trin_NLCD)
+plot(west_basins_acea)
 
 plot(timb_harv)
 crs(timb_harv)
 timb_harv_acea <- project(timb_harv, trin_NLCD)
 
 
+### subset basins, keeping those that intersect trinity county
+# trin_basins <- west_basins_acea[trin_cty_acea, ]
+# plot(trin_basins, add = T, col = "lightgreen", alpha = 0.2, border = "darkgreen")
+# as_tibble(trin_basins)
+# 
+# as_tibble(cal_gages)
+# # Is 'STAID' equivalent to 'GAGE_ID'?
+# as_tibble(cal_gages$STAID)
+# # I think so, according to gages metadata
+# # subset cal gages
+# trin_gage_id <- trin_basins$GAGE_ID
+# 
+# #doesn't work
+# filter(cal_gages, STAID %in% trin_gage_id)
+# 
+# #This works!
+# # trin_gages <- cal_gages[-which(!cal_gages$STAID %in% trin_basins$GAGE_ID)]
+# # plot(trin_gages, add=T)
+# # writeVector(trin_gages, str_c(fp, "gages_II/trin_gages.shp"))
+# 
+# #subset further, including only gages within trinity county
+# trin_gages_sub <- trin_gages[trin_cty_acea, ]
+# 
+# trin_basins_sub <- trin_basins[-which(!trin_basins$GAGE_ID %in% trin_gages_sub$STAID)]
+
+
+### Plot it all out!
 
 plot(trin_cty_acea)
 plot(trin_NLCD, add = T)
 plot(cali_counties_acea, add=T, border = "darkgrey")
 plot(trin_cty_acea, add = T, border = "darkred")
 plot(trin_wsheds_acea, add = T, col = "lightblue", alpha = 0.2, border = "darkblue")
+plot(trin_basins_sub, add = T, col = "lightgreen", alpha = 0.2, border = "darkgreen")
 plot(timb_harv_acea, add=T)
-plot(cal_gages, add = T, col = "red")
+plot(trin_gages_sub, add = T, col = "red")
 
 
 
