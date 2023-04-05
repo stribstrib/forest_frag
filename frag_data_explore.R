@@ -104,7 +104,7 @@ plot(trin_cty_acea, add = T, border = "darkred", width = 1)
 plot(trin_wsheds_acea, add = T, col = "lightblue", alpha = 0.2, border = "darkblue")
 plot(trin_basins, add = T, col = "lightgreen", alpha = 0.2, border = "darkgreen")
 plot(timb_harv_acea, add=T)
-plot(trin_gages, add = T, col = "red")
+plot(trin_gages, add = T, col = "cyan")
 
 
 
