@@ -13,14 +13,15 @@ library(terra)
 ##### IMPORT DATA #####
 
 # path to shared folder on cyverse
-cyverse.path <- "/iplant/home/mgracemcleod/Forest_Fragments/Data/"
+# cyverse.path <- "/iplant/home/mgracemcleod/Forest_Fragments/Data/" # Did not work within Cyverse
+cyverse.path <- "~/data-store/data/input/mgracemcleod/Forest_Fragments/Data/" #This worked, after establishing data input folder during analysis launch.
 mgm.path <- "/Users/gracemcleod/Documents/ForestEdges/" #from Grace's original Code
 oss.path <- "R:/ecohydrology/staff/Stribling/projects/forest_frag_wg/forest_frag/"
 
 
 # EACH USER SET PATH 
 # change as user/working drive changes
-fp <- oss.path
+fp <- cyverse.path
 
 
 # load data
@@ -30,11 +31,13 @@ trin_cty <- vect(str_c(fp, "political_boundaries/Trinity_County.shp"))
 cali_counties <- vect(str_c(fp, "political_boundaries/US_Counties.shp"))
 trin_wsheds <- vect(str_c(fp, "Trinity_Watersheds/Trinity_Watersheds.shp"))
 trin_basins <- vect(str_c(fp, "trin_basins_sub.shp"))
-timb_harv <- vect(str_c(fp, "CAL_FIRE_Timber_Harvesting_Plans_All_TA83.kml"))
 trin_gages <- vect(str_c(fp, "gages_II/trin_gages_sub.shp"))
 trin_NLCD <- rast(str_c(fp, "trin_county_NLCD_2019.tif"))
-#could not get ecostress files or Area.shp to plot
 
+# Loading issues:
+# could not get ecostress files or Area.shp to plot in my home computer
+# This doesn't work in cyverse, but works on my home computer - why? "Cannot read geometry type" - is it the .kml file ext?
+# timb_harv <- vect(str_c(fp, "CAL_FIRE_Timber_Harvesting_Plans_All_TA83.kml"))
 
 #Explore data
 plot(trin_NLCD)
@@ -44,7 +47,7 @@ crs(trin_NLCD)
 
 plot(trin_cty)
 crs(trin_cty)
-trin_cty_acea <- project(trin_cty, trin_NLCD)
+trin_cty_acea <- project(trin_cty, trin_NLCD) #re-projecting to Albers Conical Equal Area to mmatch NLCD layer
 
 plot(cali)
 crs(cali)
@@ -64,9 +67,11 @@ crs(trin_gages) # crs is ACEA
 plot(trin_basins)
 crs(trin_basins) #crs is ACEA
 
-plot(timb_harv)
-crs(timb_harv)
-timb_harv_acea <- project(timb_harv, trin_NLCD)
+# Can't get this kml to load; see notes above.
+# plot(timb_harv)
+# crs(timb_harv)
+# timb_harv_acea <- project(timb_harv, trin_NLCD)
+
 
 
 ### subset basins, keeping those that intersect trinity county
@@ -103,7 +108,7 @@ plot(cali_counties_acea, add=T, border = "darkgrey")
 plot(trin_cty_acea, add = T, border = "darkred", width = 1)
 plot(trin_wsheds_acea, add = T, col = "lightblue", alpha = 0.2, border = "darkblue")
 plot(trin_basins, add = T, col = "lightgreen", alpha = 0.2, border = "darkgreen")
-plot(timb_harv_acea, add=T)
+# plot(timb_harv_acea, add=T)
 plot(trin_gages, add = T, col = "cyan")
 
 
