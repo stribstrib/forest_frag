@@ -1,7 +1,6 @@
 # Test script to pull in spatial data in R within personal RStudio OR cyverse
 
 
-
 # load spatial packages
 library(tidyverse)
 library(terra)
@@ -14,14 +13,24 @@ library(terra)
 
 # path to shared folder on cyverse
 # cyverse.path <- "/iplant/home/mgracemcleod/Forest_Fragments/Data/" # Did not work within Cyverse
-cyverse.path <- "~/data-store/data/input/mgracemcleod/Forest_Fragments/Data/" #This worked, after establishing data input folder during analysis launch.
+cyverse.path2 <- "~/data-store/data/input/Forest_Fragments/Data/" #This worked, after establishing "Forest_Fragments" as the data input folder during analysis launch.
 mgm.path <- "/Users/gracemcleod/Documents/ForestEdges/" #from Grace's original Code
 oss.path <- "R:/ecohydrology/staff/Stribling/projects/forest_frag_wg/forest_frag/"
 
 
 # EACH USER SET PATH 
 # change as user/working drive changes
-fp <- cyverse.path
+fp <- cyverse.path2
+
+
+#### THIS METHOD OF CONNECTING TO GITHUB W? CREDENTIALS DIDN'T WORK:
+
+# # IF WORKING OFF OF CYVERSE, CREATE A TOKEN SO YOU CAN PUSH TO GIT
+# usethis::create_github_token()
+# # generate an access token for this Cyverse run. 
+# # set your credits and give ot your token when it asks
+# gitcreds::gitcreds_set()
+
 
 
 # load data
@@ -110,9 +119,6 @@ plot(trin_wsheds_acea, add = T, col = "lightblue", alpha = 0.2, border = "darkbl
 plot(trin_basins, add = T, col = "lightgreen", alpha = 0.2, border = "darkgreen")
 # plot(timb_harv_acea, add=T)
 plot(trin_gages, add = T, col = "cyan")
-
-
-
 
 
 
